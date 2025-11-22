@@ -4,7 +4,7 @@
   <schema path="/org/gnome/shell/extensions/Logo-menu/" id="org.gnome.shell.extensions.logo-menu">
 
     <key type="i" name="menu-button-icon-image">
-      <default>0</default>
+      <default>2</default>
       <summary>Menu Button Icon Image</summary>
       <description>Change the Menu Button Icon Image.</description>
     </key>
@@ -22,19 +22,19 @@
     </key>
 
     <key type="s" name="menu-button-extensions-app">
-      <default>"org.gnome.Extensions.desktop"</default>
+      <default>"com.mattjakeman.ExtensionManager.desktop"</default>
       <summary>Preffered Extensions app</summary>
       <description>Change to preffered Extensions app.</description>
     </key>
 
     <key type="s" name="menu-button-software-center">
-      <default>"gnome-software"</default>
+      <default>"/usr/bin/bazaar-helper"</default>
       <summary>Menu Button Software Center</summary>
       <description>Change the Menu Button Software Center.</description>
     </key>
 
     <key type="s" name="menu-button-terminal">
-      <default>"gnome-terminal"</default>
+      <default>"ptyxis"</default>
       <summary>Menu Button Terminal</summary>
       <description>Change the Menu Button Terminal.</description>
     </key>
@@ -95,7 +95,7 @@
     </key>
 
     <key type="s" name="menu-button-system-monitor">
-      <default>"gnome-system-monitor"</default>
+      <default>"/usr/bin/missioncenter-helper"</default>
       <summary>Menu System Monitor</summary>
       <description>Change the Menu System Monitor.</description>
     </key>
