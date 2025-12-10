@@ -76,7 +76,7 @@
     </key>
 
     <key type="b" name="show-activities-button">
-      <default>true</default>
+      <default>false</default>
       <summary>Toggle visibility of the top panel activities button</summary>
       <description>Toggle visibility of the top panel activities button.</description>
     </key>
@@ -95,9 +95,51 @@
     </key>
 
     <key type="s" name="menu-button-system-monitor">
-      <default>"/usr/bin/missioncenter-helper"</default>
+      <default>"/usr/libexec/missioncenter-helper"</default>
       <summary>Menu System Monitor</summary>
       <description>Change the Menu System Monitor.</description>
+    </key>
+
+    <key type="s" name="menu-button-distroshelf">
+      <default>"/usr/libexec/distroshelf-helper"</default>
+      <summary>Menu DistroShelf</summary>
+      <description>Change the Menu DistroShelf.</description>
+    </key>
+
+    <key type="s" name="menu-button-intune">
+      <default>""</default>
+      <summary>Menu Intune</summary>
+      <description>Change the Menu Intune.</description>
+    </key>
+
+    <key type="s" name="menu-button-vscode">
+      <default>""</default>
+      <summary>Menu VSCode</summary>
+      <description>Change the Menu VSCode.</description>
+    </key>
+
+    <key type="s" name="menu-button-edge">
+      <default>"/usr/libexec/edge-helper"</default>
+      <summary>Menu Edge</summary>
+      <description>Change the Menu Edge.</description>
+    </key>
+
+    <key type="s" name="menu-button-warehouse">
+      <default>"/usr/libexec/warehouse-helper"</default>
+      <summary>Menu Warehouse</summary>
+      <description>Change the Menu Warehouse.</description>
+    </key>
+
+    <key type="b" name="hide-intune">
+      <default>true</default>
+      <summary>Toggle Intune option visibility</summary>
+      <description>Toggle Intune option visibility.</description>
+    </key>
+
+    <key type="b" name="hide-edge">
+      <default>false</default>
+      <summary>Toggle Edge option visibility</summary>
+      <description>Toggle Edge option visibility.</description>
     </key>
   </schema>
 

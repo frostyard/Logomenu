@@ -53,6 +53,8 @@ class LogoMenuMenuButton extends PanelMenu.Button {
         this._settings.connectObject('changed::hide-forcequit', () => this._displayMenuItems(), this);
         this._settings.connectObject('changed::show-lockscreen', () => this._displayMenuItems(), this);
         this._settings.connectObject('changed::show-activities-button', () => this._displayMenuItems(), this);
+        this._settings.connectObject('changed::hide-intune', () => this._displayMenuItems(), this);
+        this._settings.connectObject('changed::hide-edge', () => this._displayMenuItems(), this);
         this._displayMenuItems();
 
         // bind middle click option to toggle overview
@@ -69,6 +71,8 @@ class LogoMenuMenuButton extends PanelMenu.Button {
         const showLockScreen = this._settings.get_boolean('show-lockscreen');
         const showSoftwareCenter = !this._settings.get_boolean('hide-softwarecentre');
         const showActivitiesButton = this._settings.get_boolean('show-activities-button');
+        const showIntune = !this._settings.get_boolean('hide-intune');
+        const showEdge = !this._settings.get_boolean('hide-edge');
 
         this.menu.removeAll();
 
@@ -80,14 +84,30 @@ class LogoMenuMenuButton extends PanelMenu.Button {
             this._addItem(new MenuItem(_('Activities'), () => this._overviewToggle()));
 
         this._addItem(new MenuItem(_('App Grid'), () => this._showAppGrid()));
+        this._addItem(new MenuItem(_('Files'), () => this._openNautilus()));
+        this._addItem(new PopupMenu.PopupSeparatorMenuItem());
+
+        if (showIntune)
+            this._addItem(new MenuItem(_('Intune'), () => this._openIntune()));
+
+        this._addItem(new MenuItem(_('VSCode'), () => this._openVSCode()));
+
+        if (showEdge)
+            this._addItem(new MenuItem(_('Edge'), () => this._openEdge()));
+
         this._addItem(new PopupMenu.PopupSeparatorMenuItem());
 
         if (showSoftwareCenter)
             this._addItem(new MenuItem(_('Software Center'), () => this._openSoftwareCenter()));
 
-        this._addItem(new MenuItem(_('System Monitor'), () => this._openSystemMonitor()));
+        this._addItem(new MenuItem(_('Extension Manager'), () => this._openExtensionsApp()));
+
+        this._addItem(new PopupMenu.PopupSeparatorMenuItem());
+
+        this._addItem(new MenuItem(_('Warehouse'), () => this._openWarehouse()));
+        this._addItem(new MenuItem(_('DistroShelf'), () => this._openDistroShelf()));
         this._addItem(new MenuItem(_('Terminal'), () => this._openTerminal()));
-        this._addItem(new MenuItem(_('Extensions'), () => this._openExtensionsApp()));
+        this._addItem(new MenuItem(_('System Monitor'), () => this._openSystemMonitor()));
 
         if (showForceQuit) {
             this._addItem(new PopupMenu.PopupSeparatorMenuItem());
@@ -171,8 +191,32 @@ class LogoMenuMenuButton extends PanelMenu.Button {
         new Selection.SelectionWindow();
     }
 
+    _openNautilus() {
+        Util.spawn(['nautilus']);
+    }
+
     _openTerminal() {
         Util.trySpawnCommandLine(this._settings.get_string('menu-button-terminal'));
+    }
+
+    _openDistroShelf() {
+        Util.trySpawnCommandLine(this._settings.get_string('menu-button-distroshelf'));
+    }
+
+    _openIntune() {
+        Util.trySpawnCommandLine(this._settings.get_string('menu-button-intune'));
+    }
+
+    _openVSCode() {
+        Util.trySpawnCommandLine(this._settings.get_string('menu-button-vscode'));
+    }
+
+    _openEdge() {
+        Util.trySpawnCommandLine(this._settings.get_string('menu-button-edge'));
+    }
+
+    _openWarehouse() {
+        Util.trySpawnCommandLine(this._settings.get_string('menu-button-warehouse'));
     }
 
     _openSoftwareCenter() {
