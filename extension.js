@@ -104,6 +104,7 @@ class LogoMenuMenuButton extends PanelMenu.Button {
 
         this._addItem(new PopupMenu.PopupSeparatorMenuItem());
 
+        this._addItem(new MenuItem(_('ChairLift'), () => this._openChairlift()));
         this._addItem(new MenuItem(_('Warehouse'), () => this._openWarehouse()));
         this._addItem(new MenuItem(_('DistroShelf'), () => this._openDistroShelf()));
         this._addItem(new MenuItem(_('Terminal'), () => this._openTerminal()));
@@ -213,6 +214,10 @@ class LogoMenuMenuButton extends PanelMenu.Button {
 
     _openEdge() {
         Util.trySpawnCommandLine(this._settings.get_string('menu-button-edge'));
+    }
+
+    _openChairLift() {
+        Util.trySpawnCommandLine('/usr/bin/chairlift');
     }
 
     _openWarehouse() {
