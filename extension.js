@@ -217,7 +217,7 @@ class LogoMenuMenuButton extends PanelMenu.Button {
     }
 
     _openChairLift() {
-        Util.trySpawnCommandLine('/usr/bin/chairlift-wrapper');
+        Util.trySpawnCommandLine('/usr/bin/chairlift');
     }
 
     _openWarehouse() {
