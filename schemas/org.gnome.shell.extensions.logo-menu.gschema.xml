@@ -113,7 +113,7 @@
     </key>
 
     <key type="s" name="menu-button-vscode">
-      <default>""</default>
+      <default>"/usr/libexec/vscode-helper"</default>
       <summary>Menu VSCode</summary>
       <description>Change the Menu VSCode.</description>
     </key>
