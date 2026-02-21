@@ -500,6 +500,9 @@ export const LogoMenuOptionsPage = GObject.registerClass(class LogoMenuOptionsWi
         prefGroup1.add(menuButtonTerminalRow);
         prefGroup1.add(softwareCentreRow);
         prefGroup1.add(systemMonitorRow);
+        prefGroup1.add(edgeRow);
+        prefGroup1.add(vscodeRow);
+        prefGroup1.add(azureVPNRow);
 
         prefGroup2.add(showPowerOptionsRow);
         prefGroup2.add(forceQuitOptionrow);
