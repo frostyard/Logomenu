@@ -34,6 +34,7 @@ export const SymbolicDistroIcons = [
 ];
 
 export const ColouredDistroIcons = [
+    {PATH: '/Resources/frostyard.svg'},
     {PATH: '/Resources/fedora-logo.svg'},
     {PATH: '/Resources/debian-logo.svg'},
     {PATH: '/Resources/manjaro-logo.svg'},

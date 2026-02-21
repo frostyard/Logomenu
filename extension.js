@@ -53,8 +53,9 @@ class LogoMenuMenuButton extends PanelMenu.Button {
         this._settings.connectObject('changed::hide-forcequit', () => this._displayMenuItems(), this);
         this._settings.connectObject('changed::show-lockscreen', () => this._displayMenuItems(), this);
         this._settings.connectObject('changed::show-activities-button', () => this._displayMenuItems(), this);
-        this._settings.connectObject('changed::hide-intune', () => this._displayMenuItems(), this);
-        this._settings.connectObject('changed::hide-edge', () => this._displayMenuItems(), this);
+        this._settings.connectObject('changed::menu-button-vscode', () => this._displayMenuItems(), this);
+        this._settings.connectObject('changed::menu-button-edge', () => this._displayMenuItems(), this);
+        this._settings.connectObject('changed::menu-button-azurevpn', () => this._displayMenuItems(), this);
         this._displayMenuItems();
 
         // bind middle click option to toggle overview
@@ -71,14 +72,11 @@ class LogoMenuMenuButton extends PanelMenu.Button {
         const showLockScreen = this._settings.get_boolean('show-lockscreen');
         const showSoftwareCenter = !this._settings.get_boolean('hide-softwarecentre');
         const showActivitiesButton = this._settings.get_boolean('show-activities-button');
-        const showIntune = !this._settings.get_boolean('hide-intune');
-        const showEdge = !this._settings.get_boolean('hide-edge');
+        const showEdgeButton = this._settings.get_string('menu-button-edge') != "";
+        const showVSCodeButton = this._settings.get_string('menu-button-vscode') != "";
+        const showAzureVPNButton = this._settings.get_string('menu-button-azurevpn') != "";
 
         this.menu.removeAll();
-
-        this._addItem(new MenuItem(_('About My System'), () => this._aboutThisDistro()));
-        // this._addItem(new MenuItem(_('System Settings...'), () => this._systemPreferences()));
-        this._addItem(new PopupMenu.PopupSeparatorMenuItem());
 
         if (!showActivitiesButton)
             this._addItem(new MenuItem(_('Activities'), () => this._overviewToggle()));
@@ -87,15 +85,17 @@ class LogoMenuMenuButton extends PanelMenu.Button {
         this._addItem(new MenuItem(_('Files'), () => this._openNautilus()));
         this._addItem(new PopupMenu.PopupSeparatorMenuItem());
 
-        if (showIntune)
-            this._addItem(new MenuItem(_('Intune'), () => this._openIntune()));
-
-        this._addItem(new MenuItem(_('VSCode'), () => this._openVSCode()));
-
-        if (showEdge)
+        if (showEdgeButton)
             this._addItem(new MenuItem(_('Edge'), () => this._openEdge()));
 
-        this._addItem(new PopupMenu.PopupSeparatorMenuItem());
+        if (showVSCodeButton)
+            this._addItem(new MenuItem(_('VSCode'), () => this._openVSCode()));
+
+        if (showAzureVPNButton)
+            this._addItem(new MenuItem(_('Azure VPN'), () => this._openAzureVPN()));
+
+        if (showEdgeButton || showVSCodeButton || showAzureVPNButton)
+            this._addItem(new PopupMenu.PopupSeparatorMenuItem());
 
         if (showSoftwareCenter)
             this._addItem(new MenuItem(_('Software Center'), () => this._openSoftwareCenter()));
@@ -104,11 +104,9 @@ class LogoMenuMenuButton extends PanelMenu.Button {
 
         this._addItem(new PopupMenu.PopupSeparatorMenuItem());
 
-        this._addItem(new MenuItem(_('ChairLift'), () => this._openChairlift()));
-        this._addItem(new MenuItem(_('Warehouse'), () => this._openWarehouse()));
+        this._addItem(new MenuItem(_('Mission Center'), () => this._openSystemMonitor()));
+        this._addItem(new MenuItem(_('Ptyxis'), () => this._openTerminal()));
         this._addItem(new MenuItem(_('DistroShelf'), () => this._openDistroShelf()));
-        this._addItem(new MenuItem(_('Terminal'), () => this._openTerminal()));
-        this._addItem(new MenuItem(_('System Monitor'), () => this._openSystemMonitor()));
 
         if (showForceQuit) {
             this._addItem(new PopupMenu.PopupSeparatorMenuItem());
@@ -130,6 +128,9 @@ class LogoMenuMenuButton extends PanelMenu.Button {
             this._addItem(new PopupMenu.PopupSeparatorMenuItem());
             this._addItem(new MenuItem(_('Lock Screen'), () => this._lockScreen()));
         }
+
+        this._addItem(new PopupMenu.PopupSeparatorMenuItem());
+        this._addItem(new MenuItem(_('About My System'), () => this._aboutThisDistro()));
     }
 
     _buttonPressEvent(actor, event) {
@@ -216,12 +217,8 @@ class LogoMenuMenuButton extends PanelMenu.Button {
         Util.trySpawnCommandLine(this._settings.get_string('menu-button-edge'));
     }
 
-    _openChairLift() {
-        Util.trySpawnCommandLine('/usr/bin/chairlift-wrapper');
-    }
-
-    _openWarehouse() {
-        Util.trySpawnCommandLine(this._settings.get_string('menu-button-warehouse'));
+    _openAzureVPN() {
+        Util.trySpawnCommandLine(this._settings.get_string('menu-button-azurevpn'));
     }
 
     _openSoftwareCenter() {
