@@ -344,6 +344,59 @@ export const LogoMenuOptionsPage = GObject.registerClass(class LogoMenuOptionsWi
 
         systemMonitorRow.add_suffix(changeSystemMonitorInput);
 
+        // Change Edge and build it's option in prefs
+
+        const edgeRow = new Adw.ActionRow({
+            title: _('Edge'),
+        });
+        const currentEdge = this._settings.get_string('menu-button-edge');
+
+        const changeEdgeInput = new Gtk.Entry({
+            valign: Gtk.Align.CENTER,
+        });
+
+        changeEdgeInput.set_text(currentEdge);
+        changeEdgeInput.connect('changed', () => {
+            this._settings.set_string('menu-button-edge', changeEdgeInput.get_text());
+        });
+
+        edgeRow.add_suffix(changeEdgeInput);
+
+        // Change VS Code and build it's option in prefs
+
+        const vscodeRow = new Adw.ActionRow({
+            title: _('Visual Studio Code'),
+        });
+        const currentVSCode = this._settings.get_string('menu-button-vscode');
+
+        const changeVSCodeInput = new Gtk.Entry({
+            valign: Gtk.Align.CENTER,
+        });
+
+        changeVSCodeInput.set_text(currentVSCode);
+        changeVSCodeInput.connect('changed', () => {
+            this._settings.set_string('menu-button-vscode', changeVSCodeInput.get_text());
+        });
+
+        vscodeRow.add_suffix(changeVSCodeInput);
+
+        // Change Azure VPN and build it's option in prefs
+
+        const azureVPNRow = new Adw.ActionRow({
+            title: _('Azure VPN'),
+        });
+        const currentAzureVPN = this._settings.get_string('menu-button-azurevpn');
+
+        const changeAzureVPNInput = new Gtk.Entry({
+            valign: Gtk.Align.CENTER,
+        });
+
+        changeAzureVPNInput.set_text(currentAzureVPN);
+        changeAzureVPNInput.connect('changed', () => {
+            this._settings.set_string('menu-button-azurevpn', changeAzureVPNInput.get_text());
+        });
+
+        azureVPNRow.add_suffix(changeAzureVPNInput);
 
         // Power Options
         const showPowerOptionsRow = new Adw.ActionRow({
