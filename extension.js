@@ -86,13 +86,13 @@ class LogoMenuMenuButton extends PanelMenu.Button {
         this._addItem(new PopupMenu.PopupSeparatorMenuItem());
 
         if (showEdgeButton)
-            this._addItem(new MenuItem(_('Edge'), () => this._openEdge()));
+            this._addItem(new MenuItem(_('Microsoft Edge'), () => this._openEdge()));
 
         if (showVSCodeButton)
             this._addItem(new MenuItem(_('Visual Studio Code'), () => this._openVSCode()));
 
         if (showAzureVPNButton)
-            this._addItem(new MenuItem(_('Azure VPN'), () => this._openAzureVPN()));
+            this._addItem(new MenuItem(_('Azure VPN Client'), () => this._openAzureVPN()));
 
         if (showEdgeButton || showVSCodeButton || showAzureVPNButton)
             this._addItem(new PopupMenu.PopupSeparatorMenuItem());
