@@ -56,6 +56,7 @@ class LogoMenuMenuButton extends PanelMenu.Button {
         this._settings.connectObject('changed::menu-button-vscode', () => this._displayMenuItems(), this);
         this._settings.connectObject('changed::menu-button-edge', () => this._displayMenuItems(), this);
         this._settings.connectObject('changed::menu-button-azurevpn', () => this._displayMenuItems(), this);
+        this._settings.connectObject('changed::menu-button-bold-brew', () => this._displayMenuItems(), this);
         this._displayMenuItems();
 
         // bind middle click option to toggle overview
@@ -75,6 +76,7 @@ class LogoMenuMenuButton extends PanelMenu.Button {
         const showEdgeButton = this._settings.get_string('menu-button-edge') != "";
         const showVSCodeButton = this._settings.get_string('menu-button-vscode') != "";
         const showAzureVPNButton = this._settings.get_string('menu-button-azurevpn') != "";
+        const showBoldBrew = this._settings.get_string('menu-button-bold-brew') != "";
 
         this.menu.removeAll();
 
@@ -99,6 +101,9 @@ class LogoMenuMenuButton extends PanelMenu.Button {
 
         if (showSoftwareCenter)
             this._addItem(new MenuItem(_('Bazaar'), () => this._openSoftwareCenter()));
+
+        if (showBoldBrew)
+            this._addItem(new MenuItem(_('Bold Brew'), () => this._openBoldBrew()));
 
         this._addItem(new MenuItem(_('Extension Manager'), () => this._openExtensionsApp()));
 
@@ -223,6 +228,10 @@ class LogoMenuMenuButton extends PanelMenu.Button {
 
     _openSoftwareCenter() {
         Util.trySpawnCommandLine(this._settings.get_string('menu-button-software-center'));
+    }
+
+    _openBoldBrew() {
+        Util.trySpawnCommandLine(this._settings.get_string('menu-button-bold-brew'));
     }
 
     _openSystemMonitor() {

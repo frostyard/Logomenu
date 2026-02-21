@@ -398,6 +398,24 @@ export const LogoMenuOptionsPage = GObject.registerClass(class LogoMenuOptionsWi
 
         azureVPNRow.add_suffix(changeAzureVPNInput);
 
+        // Change Bold Brew and build it's option in prefs
+
+        const boldBrewRow = new Adw.ActionRow({
+            title: _('Bold Brew'),
+        });
+        const currentBoldBrew = this._settings.get_string('menu-button-bold-brew');
+
+        const changeBoldBrewInput = new Gtk.Entry({
+            valign: Gtk.Align.CENTER,
+        });
+
+        changeBoldBrewInput.set_text(currentBoldBrew);
+        changeBoldBrewInput.connect('changed', () => {
+            this._settings.set_string('menu-button-bold-brew', changeBoldBrewInput.get_text());
+        });
+
+        boldBrewRow.add_suffix(changeBoldBrewInput);
+
         // Power Options
         const showPowerOptionsRow = new Adw.ActionRow({
             title: _('Enable Power Options'),
@@ -503,6 +521,7 @@ export const LogoMenuOptionsPage = GObject.registerClass(class LogoMenuOptionsWi
         prefGroup1.add(edgeRow);
         prefGroup1.add(vscodeRow);
         prefGroup1.add(azureVPNRow);
+        prefGroup1.add(boldBrewRow);
 
         prefGroup2.add(showPowerOptionsRow);
         prefGroup2.add(forceQuitOptionrow);

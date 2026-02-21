@@ -1,5 +1,6 @@
 export const SymbolicDistroIcons = [
     {PATH: 'start-here-symbolic'},
+    {PATH: '/Resources/frostyard-symbolic.svg'},
     {PATH: '/Resources/fedora-logo-symbolic.svg'},
     {PATH: '/Resources/debian-logo-symbolic.svg'},
     {PATH: '/Resources/manjaro-logo-symbolic.svg'},

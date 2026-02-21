@@ -123,6 +123,12 @@
       <summary>Menu Azure VPN</summary>
       <description>Change the Menu Azure VPN.</description>
     </key>
+
+    <key type="s" name="menu-button-bold-brew">
+      <default>"/usr/bin/bbrew-helper"</default>
+      <summary>Menu Bold Brew</summary>
+      <description>Change the Menu Bold Brew.</description>
+    </key>
   </schema>
 
 </schemalist>
