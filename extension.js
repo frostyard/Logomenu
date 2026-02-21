@@ -78,7 +78,7 @@ class LogoMenuMenuButton extends PanelMenu.Button {
 
         this.menu.removeAll();
 
-        if (!showActivitiesButton)
+        if (showActivitiesButton)
             this._addItem(new MenuItem(_('Activities'), () => this._overviewToggle()));
 
         this._addItem(new MenuItem(_('App Grid'), () => this._showAppGrid()));
