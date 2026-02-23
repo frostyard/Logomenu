@@ -125,7 +125,7 @@
     </key>
 
     <key type="s" name="menu-button-bold-brew">
-      <default>"/usr/bin/bbrew-helper"</default>
+      <default>"/usr/bin/ptyxis -s -T 'Bold Brew' -- /usr/bin/bbrew-helper"</default>
       <summary>Menu Bold Brew</summary>
       <description>Change the Menu Bold Brew.</description>
     </key>
