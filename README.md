@@ -1,5 +1,8 @@
 # Logo Menu
 
+This is Frostyard's fork of Logomenu; see [FROSTYARD.md](FROSTYARD.md) for
+how it differs from upstream.
+
 
 <img src="https://github.com/Aryan20/Logomenu/blob/main/screenshots/screenshot2.png" width=410>
 
@@ -31,9 +34,9 @@ Join the matrix room for the latest news and releases and/or for suggestions: [c
 
 -App Grid (Opens GNOME app menu/grid)
 
--Software Center (defaults to `gnome-software`)
+-Software Center (labeled "Bazaar" in this fork, defaults to `/usr/libexec/bazaar-helper`; upstream calls it "Software Center" and defaults to `gnome-software`)
 
--Terminal (defaults to `gnome-terminal`)
+-Terminal (labeled "Ptyxis" in this fork, defaults to `ptyxis --new-window`; upstream calls it "Terminal" and defaults to `gnome-terminal`)
 
 -Extensions (Quick access to all of your GNOME Extensions.)
 
