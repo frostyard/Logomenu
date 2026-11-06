@@ -123,3 +123,14 @@ Do not add baseline files here (`AGENTS.md`, `docs/`, `mise.toml`, new
 files in `.github/`): they diverge from upstream, and snosi's build extracts
 the whole tree into the image's extension directory, so they would ship to
 users.
+
+## Keeping this file current
+
+When snosi's pin or this fork's `main` changes, update the "Pinned commit"
+section and every other line that names the pinned commit, the last commit
+that changes the extension, or a commit count. Check the facts with:
+
+- the `logomenu` entry in snosi's `shared/download/image-checksums.json`;
+- `git log --oneline origin/main --not upstream/main` (fork-only commits);
+- `git rev-list --count origin/main..upstream/main` (upstream commits the
+  fork lacks).
