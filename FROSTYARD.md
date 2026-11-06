@@ -53,7 +53,7 @@ earlier fork-only commits predate this merge and are not itemized here — see
 | `af89eab` | Add option for symbolic icon, add bold brew menu entry | Adds `Resources/frostyard-symbolic.svg` as an icon choice (Frostyard branding); adds a "Bold Brew" menu entry (`menu-button-bold-brew`, default `/usr/bin/bbrew-helper`), a Frostyard/uBlue-specific app. |
 | `7a13538` | fix: Correct command for bold brew | Changes the Bold Brew default from `/usr/bin/bbrew-helper` to `/usr/bin/ptyxis -s -T 'Bold Brew' -- /usr/bin/bbrew-helper` (runs it inside a titled Ptyxis terminal tab rather than directly). |
 | `a09c142` | chore: Update compiled schemas | Recompiles `schemas/gschemas.compiled`; no source change. |
-| `ae0ea46` | feat: Use symbolic icon by default | Flips `symbolic-icon` default to `true` and changes the icon-image default — the pinned/HEAD commit. |
+| `ae0ea46` | feat: Use symbolic icon by default | Flips `symbolic-icon` default to `true` and changes the icon-image default — the last commit that changes the extension. |
 
 Frostyard additions in summary: a `frostyard.svg`/`frostyard-symbolic.svg`
 branded icon, and menu wiring for uBlue-adjacent tooling (Bazaar, Bold Brew,
@@ -100,8 +100,8 @@ issue or discussion is on record. Unknown, not guessed.
 ## Recommendation
 
 **Rebase later, keep for now.** The fork's value is entirely in its
-Frostyard-specific app wiring, branding and default changes (the 22 commits
-of divergence, 12 of them itemized above), none of which touch
+Frostyard-specific app wiring, branding and default changes (the 22 fork-only
+commits through `ae0ea46`, 12 of them itemized above), none of which touch
 `metadata.json` or shell-version support, so they are low-risk to replay on
 top of a newer upstream commit once someone verifies behavior under GNOME
 50 and 51. Switching Snow to unmodified upstream is not recommended now: upstream
