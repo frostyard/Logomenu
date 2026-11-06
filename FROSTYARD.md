@@ -9,8 +9,10 @@ actions. Snow (via snosi) builds this extension from a pinned commit of this for
 The shared base with upstream is commit `fd37eb3331e87307c4f44440016af6eefa937d27`
 ("Merge pull request #114 from Nixie24/main", 2026-02-13) — the merge-base of
 Frostyard's `main` and upstream's `main`. Frostyard's divergence did not begin
-there, though: `git log origin/main --not upstream/main` shows 22 fork-only
-commits in total. Ten precede the `39f262e` merge listed below (early menu
+there, though: `git log origin/main --not upstream/main` shows 24 fork-only
+commits in total: 22 up to `ae0ea46`, then `a3c8baa`, which adds this
+document, and its merge `b11e1c5`; those 2 change documentation only. Of the
+22, ten precede the `39f262e` merge listed below (early menu
 additions such as ChairLift, Distroshelf, Warehouse, Intune/Edge/VSCode
 options, and a compiled-schema commit), then `39f262e` re-merges the upstream
 state at the fork point, followed by 11 more Frostyard-authored commits ending
@@ -21,9 +23,15 @@ but are part of the fork's total divergence.
 ## Pinned commit
 
 snosi's `shared/download/image-checksums.json` pins
+`b11e1c5fc1d941537387b619515ceaa423e923b5`, the merge that added this
+document. Its extension code, metadata and schemas are the same as at
 `ae0ea469beaa7ce0cdc1fb8be26fc50c13d4fcbf` ("feat: Use symbolic icon by
-default"). **This is the fork's current `main` HEAD** — the fork is not
-behind its own tip; Snow ships the latest state of this repository.
+default"), the last commit that changes the extension. Every commit on the
+fork's `main` after the pin changes only documentation, so Snow ships the
+extension as it is on `main`. snosi's `shared/snow/scripts/build/logomenu.chroot`
+extracts the whole source archive into
+`/usr/share/gnome-shell/extensions/logomenu@aryan_k/`, so a new pin also
+copies the new documentation files into the image.
 
 ## Commits Frostyard added from the `39f262e` merge onward
 
@@ -45,7 +53,7 @@ earlier fork-only commits predate this merge and are not itemized here — see
 | `af89eab` | Add option for symbolic icon, add bold brew menu entry | Adds `Resources/frostyard-symbolic.svg` as an icon choice (Frostyard branding); adds a "Bold Brew" menu entry (`menu-button-bold-brew`, default `/usr/bin/bbrew-helper`), a Frostyard/uBlue-specific app. |
 | `7a13538` | fix: Correct command for bold brew | Changes the Bold Brew default from `/usr/bin/bbrew-helper` to `/usr/bin/ptyxis -s -T 'Bold Brew' -- /usr/bin/bbrew-helper` (runs it inside a titled Ptyxis terminal tab rather than directly). |
 | `a09c142` | chore: Update compiled schemas | Recompiles `schemas/gschemas.compiled`; no source change. |
-| `ae0ea46` | feat: Use symbolic icon by default | Flips `symbolic-icon` default to `true` and changes the icon-image default — the pinned/HEAD commit. |
+| `ae0ea46` | feat: Use symbolic icon by default | Flips `symbolic-icon` default to `true` and changes the icon-image default — the last commit that changes the extension. |
 
 Frostyard additions in summary: a `frostyard.svg`/`frostyard-symbolic.svg`
 branded icon, and menu wiring for uBlue-adjacent tooling (Bazaar, Bold Brew,
@@ -58,15 +66,19 @@ therefore ships none of ChairLift, Warehouse or Intune as menu items.
 
 ## How far upstream has moved
 
-Since the fork point, upstream added 18 further commits the fork lacks,
-most recently `cf988c0` ("readme: update to latest version", 2026-06-27).
-Notably:
+Since the fork point, upstream added 21 further commits the fork lacks,
+most recently `0afd438` ("chore(metadata): bump version to 25.2",
+2026-09-28). Notably:
 
-- `e2a2034` "metadata: support GNOME 50" — the fork's `metadata.json` still
+- `e2a2034` "metadata: support GNOME 50" and `021e9d7` "version: bump
+  version to 25.0", which adds GNOME 51 — the fork's `metadata.json` still
   lists `"shell-version": ["46", "47", "48", "49"]` (`version` 36,
   `version-name` "24.2"), unchanged since the fork point; upstream's is now
-  `["49", "50"]` (`version` 43, `version-name` "24.8"). The fork has not
-  picked up GNOME Shell 50 support.
+  `["49", "50", "51"]` (`version` 45, `version-name` "25.2"). The fork has
+  not picked up GNOME Shell 50 or 51 support.
+- `9c1872a` "fix(forcequit): port upstream GNOME 50 fixes and guard against
+  killing the shell" — a Force Quit fix the fork lacks. The fork hides
+  Force Quit by default (`93ed9bb`), but users can turn it on.
 - `b8f5bac` "menu click type to open activities not working" and `aab9ae4`
   "fix issue with clickGesture null" — two functional bug fixes the fork
   lacks.
@@ -77,8 +89,8 @@ Notably:
   version/metadata bumps with no functional content for Frostyard.
 
 No fork commit narrows or removes upstream's existing shell-version support;
-the gap is entirely upstream fixes and GNOME 50 support the fork has not
-replayed.
+the gap is entirely upstream fixes and GNOME 50 and 51 support the fork has
+not replayed.
 
 ## Why the fork exists
 
@@ -88,11 +100,37 @@ issue or discussion is on record. Unknown, not guessed.
 ## Recommendation
 
 **Rebase later, keep for now.** The fork's value is entirely in its
-Frostyard-specific app wiring, branding and default changes (the 22 commits
-of divergence, 12 of them itemized above), none of which touch
+Frostyard-specific app wiring, branding and default changes (the 22 fork-only
+commits through `ae0ea46`, 12 of them itemized above), none of which touch
 `metadata.json` or shell-version support, so they are low-risk to replay on
 top of a newer upstream commit once someone verifies behavior under GNOME
-50. Switching Snow to unmodified upstream is not recommended now: upstream
+50 and 51. Switching Snow to unmodified upstream is not recommended now: upstream
 has none of the Frostyard menu entries the fork currently ships (Bold Brew,
 Bazaar branding, Mission Center, Ptyxis, Azure VPN wiring), so switching
 would drop functionality Snow currently ships.
+
+## Repository baseline
+
+The frostyard repository baseline
+([ADR-0071](https://github.com/frostyard/core/blob/main/docs/adr/0071-hold-every-code-repository-to-one-baseline.md),
+[spec](https://github.com/frostyard/core/blob/main/docs/specs/repository-baseline.md))
+exempts this fork from all of its rows, because the fork follows its
+upstream. The README standard
+([ADR-0072](https://github.com/frostyard/core/blob/main/docs/adr/0072-write-every-readme-to-one-standard.md),
+[spec](https://github.com/frostyard/core/blob/main/docs/specs/readme.md))
+asks a fork only for 1 line at the top of `README.md` that links this file.
+Do not add baseline files here (`AGENTS.md`, `docs/`, `mise.toml`, new
+files in `.github/`): they diverge from upstream, and snosi's build extracts
+the whole tree into the image's extension directory, so they would ship to
+users.
+
+## Keeping this file current
+
+When snosi's pin or this fork's `main` changes, update the "Pinned commit"
+section and every other line that names the pinned commit, the last commit
+that changes the extension, or a commit count. Check the facts with:
+
+- the `logomenu` entry in snosi's `shared/download/image-checksums.json`;
+- `git log --oneline origin/main --not upstream/main` (fork-only commits);
+- `git rev-list --count origin/main..upstream/main` (upstream commits the
+  fork lacks).
