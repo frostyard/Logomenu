@@ -95,7 +95,7 @@
     </key>
 
     <key type="s" name="menu-button-system-monitor">
-      <default>"/usr/libexec/missioncenter-helper"</default>
+      <default>"gnome-system-monitor"</default>
       <summary>Menu System Monitor</summary>
       <description>Change the Menu System Monitor.</description>
     </key>
