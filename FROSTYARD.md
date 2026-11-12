@@ -9,9 +9,10 @@ actions. Snow (via snosi) builds this extension from a pinned commit of this for
 The shared base with upstream is commit `fd37eb3331e87307c4f44440016af6eefa937d27`
 ("Merge pull request #114 from Nixie24/main", 2026-02-13) — the merge-base of
 Frostyard's `main` and upstream's `main`. Frostyard's divergence did not begin
-there, though: `git log origin/main --not upstream/main` shows 24 fork-only
-commits in total: 22 up to `ae0ea46`, then `a3c8baa`, which adds this
-document, and its merge `b11e1c5`; those 2 change documentation only. Of the
+there, though: `git log origin/main --not upstream/main` lists the fork-only
+commits: 22 up to `ae0ea46`; then documentation-only commits from `a3c8baa`
+(which adds this document) to `8927224`; then the System Monitor change (see
+"Mission Center replaced by GNOME System Monitor" below). Of the
 22, ten precede the `39f262e` merge listed below (early menu
 additions such as ChairLift, Distroshelf, Warehouse, Intune/Edge/VSCode
 options, and a compiled-schema commit), then `39f262e` re-merges the upstream
@@ -23,12 +24,16 @@ but are part of the fork's total divergence.
 ## Pinned commit
 
 snosi's `shared/download/image-checksums.json` pins
-`b11e1c5fc1d941537387b619515ceaa423e923b5`, the merge that added this
-document. Its extension code, metadata and schemas are the same as at
+`892722440c2afd302bfd15d565c58e7d494994d1`, a documentation-only merge.
+Its extension code, metadata and schemas are the same as at
 `ae0ea469beaa7ce0cdc1fb8be26fc50c13d4fcbf` ("feat: Use symbolic icon by
-default"), the last commit that changes the extension. Every commit on the
-fork's `main` after the pin changes only documentation, so Snow ships the
-extension as it is on `main`. snosi's `shared/snow/scripts/build/logomenu.chroot`
+default"). The System Monitor change below comes after the pin, so the
+pinned commit still shows "Mission Center" and launches
+`/usr/libexec/missioncenter-helper`. snosi's `check-dependencies` workflow
+opens a pin update to the newest commit on `main`; it needs no tag or
+release. That pin update must land in the same snosi change as the
+`gnome-system-monitor` package, or after it: an image must not show a menu
+item whose program is missing. snosi's `shared/snow/scripts/build/logomenu.chroot`
 extracts the whole source archive into
 `/usr/share/gnome-shell/extensions/logomenu@aryan_k/`, so a new pin also
 copies the new documentation files into the image.
@@ -53,16 +58,28 @@ earlier fork-only commits predate this merge and are not itemized here — see
 | `af89eab` | Add option for symbolic icon, add bold brew menu entry | Adds `Resources/frostyard-symbolic.svg` as an icon choice (Frostyard branding); adds a "Bold Brew" menu entry (`menu-button-bold-brew`, default `/usr/bin/bbrew-helper`), a Frostyard/uBlue-specific app. |
 | `7a13538` | fix: Correct command for bold brew | Changes the Bold Brew default from `/usr/bin/bbrew-helper` to `/usr/bin/ptyxis -s -T 'Bold Brew' -- /usr/bin/bbrew-helper` (runs it inside a titled Ptyxis terminal tab rather than directly). |
 | `a09c142` | chore: Update compiled schemas | Recompiles `schemas/gschemas.compiled`; no source change. |
-| `ae0ea46` | feat: Use symbolic icon by default | Flips `symbolic-icon` default to `true` and changes the icon-image default — the last commit that changes the extension. |
+| `ae0ea46` | feat: Use symbolic icon by default | Flips `symbolic-icon` default to `true` and changes the icon-image default — the last extension change in the pinned commit `8927224`. |
 
 Frostyard additions in summary: a `frostyard.svg`/`frostyard-symbolic.svg`
 branded icon, and menu wiring for uBlue-adjacent tooling (Bazaar, Bold Brew,
-Mission Center, Ptyxis, Azure VPN, Edge, VSCode helpers) that upstream does
-not have. ChairLift, Warehouse and Intune menu items were also added by the
+Ptyxis, Azure VPN, Edge, VSCode helpers) that upstream does not have. ChairLift, Warehouse and Intune menu items were also added by the
 fork's earlier (pre-`39f262e`) commits, then ChairLift and Warehouse were
 removed again by `626ef31`, and Intune's menu item was removed by the same
 commit (its helper function remains as unused dead code). The pinned commit
 therefore ships none of ChairLift, Warehouse or Intune as menu items.
+
+## Mission Center replaced by GNOME System Monitor
+
+The `io.missioncenter.MissionCenter` Flatpak no longer works on Snow, so the
+menu goes back to upstream's System Monitor item. The item's label is
+"System Monitor" again, and the default of `menu-button-system-monitor` is
+upstream's `gnome-system-monitor`, not `/usr/libexec/missioncenter-helper`.
+Both lines now match upstream, so this change removes divergence; the
+`schemas/gschemas.compiled` file is rebuilt to match. The key stays, so a
+user who set their own command keeps it. A user who typed
+`/usr/libexec/missioncenter-helper` by hand keeps that value and must reset
+the key (`gsettings reset org.gnome.shell.extensions.logo-menu
+menu-button-system-monitor`) when snosi removes the helper.
 
 ## How far upstream has moved
 
@@ -106,7 +123,7 @@ commits through `ae0ea46`, 12 of them itemized above), none of which touch
 top of a newer upstream commit once someone verifies behavior under GNOME
 50 and 51. Switching Snow to unmodified upstream is not recommended now: upstream
 has none of the Frostyard menu entries the fork currently ships (Bold Brew,
-Bazaar branding, Mission Center, Ptyxis, Azure VPN wiring), so switching
+Bazaar branding, Ptyxis, Azure VPN wiring), so switching
 would drop functionality Snow currently ships.
 
 ## Repository baseline
