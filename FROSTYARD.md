@@ -58,7 +58,7 @@ earlier fork-only commits predate this merge and are not itemized here — see
 | `af89eab` | Add option for symbolic icon, add bold brew menu entry | Adds `Resources/frostyard-symbolic.svg` as an icon choice (Frostyard branding); adds a "Bold Brew" menu entry (`menu-button-bold-brew`, default `/usr/bin/bbrew-helper`), a Frostyard/uBlue-specific app. |
 | `7a13538` | fix: Correct command for bold brew | Changes the Bold Brew default from `/usr/bin/bbrew-helper` to `/usr/bin/ptyxis -s -T 'Bold Brew' -- /usr/bin/bbrew-helper` (runs it inside a titled Ptyxis terminal tab rather than directly). |
 | `a09c142` | chore: Update compiled schemas | Recompiles `schemas/gschemas.compiled`; no source change. |
-| `ae0ea46` | feat: Use symbolic icon by default | Flips `symbolic-icon` default to `true` and changes the icon-image default — the last commit that changes the extension. |
+| `ae0ea46` | feat: Use symbolic icon by default | Flips `symbolic-icon` default to `true` and changes the icon-image default — the last extension change in the pinned commit `8927224`. |
 
 Frostyard additions in summary: a `frostyard.svg`/`frostyard-symbolic.svg`
 branded icon, and menu wiring for uBlue-adjacent tooling (Bazaar, Bold Brew,
