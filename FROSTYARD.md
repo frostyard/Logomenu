@@ -24,17 +24,18 @@ but are part of the fork's total divergence.
 ## Pinned commit
 
 snosi's `shared/download/image-checksums.json` pins
-`892722440c2afd302bfd15d565c58e7d494994d1`, a documentation-only merge.
-Its extension code, metadata and schemas are the same as at
-`ae0ea469beaa7ce0cdc1fb8be26fc50c13d4fcbf` ("feat: Use symbolic icon by
-default"). The System Monitor change below comes after the pin, so the
-pinned commit still shows "Mission Center" and launches
-`/usr/libexec/missioncenter-helper`. snosi's `check-dependencies` workflow
-opens a pin update to the newest commit on `main`; it needs no tag or
-release. That pin update must land in the same snosi change as the
-`gnome-system-monitor` package, or after it: an image must not show a menu
-item whose program is missing. snosi's `shared/snow/scripts/build/logomenu.chroot`
-extracts the whole source archive into
+`c194ee6b55f039bd8cf5071e89ea28a795d4e870`, the merge of the System Monitor
+change and the tip of this fork's `main`. Its extension code, metadata and
+schemas are the same as at `f069f28` ("fix: launch GNOME System Monitor
+from the menu again"), so the pinned commit shows "System Monitor" and
+launches `gnome-system-monitor` (see "Mission Center replaced by GNOME
+System Monitor" below). This pin landed in the same snosi change as the
+`gnome-system-monitor` package
+([frostyard/snosi#1280](https://github.com/frostyard/snosi/pull/1280)): an
+image must not show a menu item whose program is missing. snosi's
+`check-dependencies` workflow opens a pin update to the newest commit on
+`main`; it needs no tag or release. snosi's
+`shared/snow/scripts/build/logomenu.chroot` extracts the whole source archive into
 `/usr/share/gnome-shell/extensions/logomenu@aryan_k/`, so a new pin also
 copies the new documentation files into the image.
 
@@ -58,7 +59,7 @@ earlier fork-only commits predate this merge and are not itemized here — see
 | `af89eab` | Add option for symbolic icon, add bold brew menu entry | Adds `Resources/frostyard-symbolic.svg` as an icon choice (Frostyard branding); adds a "Bold Brew" menu entry (`menu-button-bold-brew`, default `/usr/bin/bbrew-helper`), a Frostyard/uBlue-specific app. |
 | `7a13538` | fix: Correct command for bold brew | Changes the Bold Brew default from `/usr/bin/bbrew-helper` to `/usr/bin/ptyxis -s -T 'Bold Brew' -- /usr/bin/bbrew-helper` (runs it inside a titled Ptyxis terminal tab rather than directly). |
 | `a09c142` | chore: Update compiled schemas | Recompiles `schemas/gschemas.compiled`; no source change. |
-| `ae0ea46` | feat: Use symbolic icon by default | Flips `symbolic-icon` default to `true` and changes the icon-image default — the last extension change in the pinned commit `8927224`. |
+| `ae0ea46` | feat: Use symbolic icon by default | Flips `symbolic-icon` default to `true` and changes the icon-image default — the last extension change of these 12; the pinned commit `c194ee6` adds one more, `f069f28` (see "Mission Center replaced by GNOME System Monitor" below). |
 
 Frostyard additions in summary: a `frostyard.svg`/`frostyard-symbolic.svg`
 branded icon, and menu wiring for uBlue-adjacent tooling (Bazaar, Bold Brew,
